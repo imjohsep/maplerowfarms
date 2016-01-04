@@ -1,0 +1,46 @@
+.footer 
+	font-size: 12px
+	color: gray
+	text-align: center
+
+.port-main-view
+	@extend .port-main-content
+	.hero
+		text-align: center
+		
+		h1
+			margin-bottom: 10px
+			margin-top: 20px
+	h2 
+		+media(handhelds)
+			text-align: center
+
+	.contact-container
+		+media(handhelds)
+			text-align: center		
+	
+	.port-main-content--columns
+		border: 1px solid
+		margin-bottom: 10px
+
+.port-main-view-image
+	width: 320px
+	height: 200px
+	background-size: cover !important
+	background-repeat: no-repeat
+	+media(handhelds)
+		margin: 10px auto
+
+.port-main-view-image-1
+	background: url("/static-images/highway-barn-white.jpg")
+	@extend .port-main-view-image
+
+.port-main-view-image-2
+	background: url("/static-images/lower-barn-over-tractor.jpg")
+	@extend .port-main-view-image
+
+.port-main-view-image-3
+	background: url("/static-images/main-barn-with-truck.jpg")
+	@extend .port-main-view-image
+		
+
