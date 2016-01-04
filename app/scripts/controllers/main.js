@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name angularTemplate.controller:MainCtrl
+ * @name maple-row-farms.controller:MainCtrl
  * @description
  * # MainCtrl
- * Controller of the ashlynTemplate
+ * Controller of the maple-row-farms
  */
-angular.module('angularTemplate')
+angular.module('maple-row-farms')
   .controller('MainCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',

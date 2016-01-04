@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc overview
- * @name angularTemplate
+ * @name maple-row-farms
  * @description
- * # angularTemplate
+ * # maple-row-farms
  *
  * Main module of the application.
  */
 angular
-  .module('angularTemplate', [
+  .module('maple-row-farms', [
     'ngAnimate',
     'ngSanitize',
     'ngTouch',
