@@ -1,0 +1,219 @@
+<div class="icr-styles-view-svgs">
+    <div class="icr-main-content">
+        <h2>Creating SVGs</h2>
+        <p>To add a new SVG element to the site, save the svg to appropriate app image folder for visual reference. Use strict naming convention. So if you svg is named <span class="code-snippet">hero-arrow-down.svg</span> you will extend that name into the new class you will create.</p>
+
+        <p><strong>Here are the basic steps to prepare svgs</strong></p>
+        <ul class="icr-main-list">
+            <li>Make sure your svg is cleaned up on export. Object doesn't have unnecessary points, strokes are outlines, and font are outlined.</li>
+            <li>Go to this <a href="http://datauriconverter.appspot.com/#dataurlmaker" target="_blank" class="icr-main-link">link to make a data uri.</a></li>
+            <li>Copy the data uri and navigate to <span class="code-snippet">app/images/svg-output/sass/sprite-svg-data.scss</span>.</li>
+            <li>Make a new class using the convention that is already established.</li>
+            <li>Paste in the data uri into the <span class="code-snippet">background-image</span> style.</li>
+            <li>Refer to your mockup for the appropriate width and height of your svg. Width and height can be altered but it is your responsibility to ensure that the correct aspect ratio is maintained.</li>
+            <li>Your svg is ready to be applied to any element as a background image.</li>
+        </ul>
+
+        <p><strong>Very Basic SVG Implementation</strong></p>
+        <div class="icr-style-component-code">
+            <code ascii>
+                //Allow background image to show behind content#
+                .icr-explain-svg#
+                    =@extend .svg-class-with-data-uri#
+                #
+                //Allow background image to show on the before and after peusedo classes#
+                .icr-explain-svg#
+                    =&::before#
+                        ==@extend .svg-class-with-data-uri'#
+                        ==display: block#
+                        ==content: ''#
+            </code>
+        </div>
+        <hr/>
+        <h2>Media Element Directive (SVGs)</h2>
+        <p>The media element mixin comprises of two mixins, <span class="code-snippet">create-media</span> and <span class="code-snippet">get-media</span></p>
+
+        <h3>Create Media Mixin</h3>
+        <p><span class="code-snippet">create-media</span> should be used to define the behavior for a group of media element components.</p>
+        <p><strong>Mixin signature:</strong></p>
+        <div class="icr-style-component-code">
+            <code ascii>
+                @include create-media($media-group-name, $settings-map)
+                    =@content
+            </code>
+        </div>
+
+        <p><strong>Parameters</strong></p>
+        <ul class="icr-main-list">
+            <li>$media-group-name: name of the media group</li>
+            <li>$settings-map (optional): map of the settings for this media group</li>
+        </ul>
+
+        <p><strong>Settings Map Properties</strong></p>
+        <p>The settings map parameter is optional, and takes four <strong>optional</strong> parameters</p>
+        <ul class="icr-main-list">
+            <li>$content-alignment: vertical position of the text in the media element
+                <ul>
+                    <li><span class="code-snippet">top,middle</span> (default), <span class="code-snippet">bottom</span></li>
+                </ul>
+            </li>
+            <li>$mode: the behavior of the media element, which depends on the <span class="code-snippet">$breakpoint</span> specified
+                <ul>
+                    <li><span class="code-snippet">standard</span> (default): image aligned to the right or left (depending on <span class="code-snippet">$arrangement</span>), offset text</li>
+                    <li><span class="code-snippet">stacked</span>: image and text are stacked (image on top if <span class="code-snippet">$arrangement</span> is <span class="code-snippet">before</span>, on bottom of <span class="code-snippet">$arrangement</span> is <span class="code-snippet">after</span>)</li>
+                    <li><span class="code-snippet">compress</span>: above the breakpoint, it will be <span class="code-snippet">stacked</span>, at or below it will be <span class="code-snippet">standard</span></li>
+                    <li><span class="code-snippet">decompress</span>: opposite of <span class="code-snippet">compress</span></li>
+                </ul>
+            </li>
+            <li>$arrangement: the position of the image
+                <ul>
+                    <li><span class="code-snippet">before</span> (default): image to the left if the <span class="code-snippet">$mode</span> is standard, image on top if the <span class="code-snippet">$mode</span> is <span class="code-snippet">stacked</span></li>
+                    <li><span class="code-snippet">after</span>: opposite positioning of <span class="code-snippet">before</span></li>
+                </ul>
+            </li>
+            <li>$breakpoint: the size that will convert the media element from <span class="code-snippet">stacked</span> to <span class="code-snippet">standard</span> or vice versa, depending on if the mode is <span class="code-snippet">compress</span> or <span class="code-snippet">decompress</span>
+                <li>Not needed if the <span class="code-snippet">$mode</span> is <span class="code-snippet">standard</span> or <span class="code-snippet">stacked</span></li>
+            </li>
+        </ul>
+
+        <p><strong>Create Media @content</strong></p>
+        <p>The content defined within a <span class="code-snippet">+create-media</span> can be any properties that you want the elements using the media group to have.</p>
+
+        <h3>Get Media Mixin</h3>
+        <p><span class="code-snippet">get-media</span> should be used to apply the settings of a media group, and to define an image (and the behaviour for an image) for the media's graphic.</p>
+
+        <p><strong>Mixin signature:</strong></p>
+        <div class="icr-style-component-code">
+            <code ascii>
+                +get-media($media-group-name, $graphic-selector, $state-property-map)
+            </code>
+        </div>
+
+        <p><strong>Parameters</strong></p>
+        <ul class="icr-main-list">
+            <li>$media-group-name: the name of the media group
+                <li>e.g. <span class="code-snippet">icr-main-info-glyphs</span></li>
+            </li>
+            <li>$icon-selector: a css selector that contains the properties of the graphic for the media element
+                <li>e.g.  <span class="code-snippet">'.svg-ico-robot'</span></li>
+            </li>
+            <li>$state-property-map: a map that correlates different media graphics to the media element
+                <li>e.g. <span class="code-snippet">('.icr-active': active)</span></li>
+            </li>
+        </ul>
+
+        <p><strong>State Property Map Example</strong></p>
+        <p>You may want to change the media graphic, depending on a class (or state) of the media element. For example, if the media element has the class <span class="code-snippet">icr-active</span> added to it, then you may want to change the class of the graphic for media element from <span class="code-snippet">.svg-ico-robot</span> to <span class="code-snippet">.svg-ico-robot-active</span>.</p>
+
+        <p>You would achieve this with: <span class="code-snippet">('.icr-active': active)</span>. The value of the properties is appended to the original name of the graphic's selector <span class="code-snippet">(active ->.svg-ico-robot-active)</span>.</p>
+
+        <p>You can define as many selectors and corresponding names as you like in the map <span class="code-snippet">('.icr-active': active, ':hover': hovering, ':active': active)</span></p>
+        
+
+        <h2>Simple Media Directive</h2>
+        <div class="icr-style-component">
+            <div class="icr-style-component-render">
+                <div class="icr-port-warning-message">
+                    <span><h3>Looks like you don't have an Advantage Plan</h3> 
+                    <p>Create a new plan to get your device protected and receive discounts for your favorite brands.</p>
+                </div>
+            </div>
+
+            <h3>HTML</h3>
+            <div class="icr-style-component-code">
+                <code ascii>
+                    <div class="icr-port-warning-message">#
+                        =<span><h3>Looks like you don't have an Advantage Plan</h3> #
+                        =<p>Create a new plan to get your device protected and receive discounts for your favorite brands.</p>#
+                    </div>
+                </code>
+            </div>
+
+            <h3>SVG Styles</h3>
+            <div class="icr-style-component-code">
+                <code ascii>
+                    $no-plans-break: 550px#
+                    +create-media(icr-port-no-plans, (top, compress, before, $no-plans-break))#
+                      =no-op: 1 #
+                    #
+                    .icr-port-warning-message#
+                      =+get-media(icr-port-no-plans, '.svg-ico-portal-no-plans-image')#
+                </code>
+            </div>
+        </div>
+
+
+        <h2>Advance Media Directive with loop</h2>
+        <div class="icr-style-component">
+            <div class="icr-style-component-render">
+                <div class="icr-repair-view-how-it-works">
+                    <div class="icr-main-content">
+                        <div class="icr-repair-how-1">
+                            <h3>Connect With Your iTech</h3>
+                            <p>Select your device and connect with your local iTech to receive a quote.</p>
+                        </div>
+                        <div class="icr-repair-how-2">
+                            <h3>Choose a Time &amp; Place</h3>
+                            <p>You decide when and where you want to meet with your iTech for the repair.</p>
+                        </div>
+                        <div class="icr-repair-how-3">
+                            <h3>Get Back to Life Fast</h3>
+                            <p>Get back to life quickly and rest easy knowing you have a lifetime warranty!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h3>HTML</h3>
+            <div class="icr-style-component-code">
+                <code ascii>
+                    <div class="icr-repair-view-how-it-works">#
+                        =<div class="icr-main-content">#
+                            ==<div class="icr-repair-how-1">#
+                                ===<h3>Connect With Your iTech</h3>#
+                                ===<p>Select your device and connect with your local iTech to receive a quote.</p>#
+                            ==</div>#
+                            ==<div class="icr-repair-how-2">#
+                                ===<h3>Choose a Time &amp; Place</h3>#
+                                ===<p>You decide when and where you want to meet with your iTech for the repair.</p>#
+                            ==</div>#
+                            ==<div class="icr-repair-how-3">#
+                                ===<h3>Get Back to Life Fast</h3>#
+                                ===<p>Get back to life quickly and rest easy knowing you have a lifetime warranty!</p>#
+                            ==</div>#
+                        =</div>#
+                    </div>
+                </code>
+            </div>
+
+            <h3>SVG Styles</h3>
+            <div class="icr-style-component-code">
+                <code ascii>
+                    $more-info-break: 680px#
+                    +create-media(icr-repair-works, (top, decompress, before, $more-info-break))#
+                      =no-op: 1 #
+                    #
+                    $icr-repair-how: '1', '2', '3'#
+                    #
+                    @each $icr-repair-how in $icr-repair-how#
+                      =.icr-repair-how-#{$icr-repair-how}#
+                        ==+get-media(icr-repair-works, '.svg-how-to-repair-#{$icr-repair-how }')#
+                    #
+                    .icr-repair-how-1#
+                      =@extend %icr-how-it-works-info#
+                      =@include media(small-screens)#
+                        ==padding-left: 15px#
+                    #
+                    .icr-repair-how-2#
+                      =@extend %icr-how-it-works-info  #
+                    #
+                    .icr-repair-how-3#
+                      =@extend %icr-how-it-works-info#
+                      =margin-right: 0#
+                      =@include media(small-screens)#
+                        ==padding-right: 15px#
+                </code>
+            </div>
+            <p>Refer to github to look at complete sass</p>
+        </div>
+    </div>
+</div>
