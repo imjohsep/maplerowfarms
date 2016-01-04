@@ -2,19 +2,18 @@
 
 /**
  * @ngdoc overview
- * @name icr-style-guide
+ * @name angularTemplate
  * @description
- * # icr-style-guide
+ * # angularTemplate
  *
  * Main module of the application.
  */
 angular
-  .module('icr-style-guide', [
+  .module('angularTemplate', [
     'ngAnimate',
     'ngSanitize',
     'ngTouch',
-    'ui.router',
-    'hljs'
+    'ui.router'
   ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
@@ -36,31 +35,6 @@ angular
         parent: 'frame',
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
-      })
-      .state('resets', {
-        url: '',
-        parent: 'frame',
-        templateUrl: 'views/resets.html'
-      })
-      .state('layout', {
-        url: '',
-        parent: 'frame',
-        templateUrl: 'views/layout.html'
-      })
-      .state('svgs', {
-        url: '',
-        parent: 'frame',
-        templateUrl: 'views/svgs.html'
-      })
-      .state('media-queries', {
-        url: '',
-        parent: 'frame',
-        templateUrl: 'views/media-queries.html'
-      })
-      .state('structure', {
-        url: '',
-        parent: 'frame',
-        templateUrl: 'views/structure.html'
       });
   }).run(function($rootScope){
   $rootScope.$on('$stateChangeSuccess', function() {

@@ -3,7 +3,7 @@
 describe('Controller: MainCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('icr-style-guide'));
+  beforeEach(module('ashlynTemplate'));
 
   var MainCtrl,
     scope;

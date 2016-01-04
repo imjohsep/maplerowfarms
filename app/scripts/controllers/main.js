@@ -2,11 +2,16 @@
 
 /**
  * @ngdoc function
- * @name icr-style-guide.controller:MainCtrl
+ * @name angularTemplate.controller:MainCtrl
  * @description
  * # MainCtrl
- * Controller of the icr-style-guide
+ * Controller of the ashlynTemplate
  */
-angular.module('icr-style-guide')
-  .controller('MainCtrl', function () { 
+angular.module('angularTemplate')
+  .controller('MainCtrl', function ($scope) {
+    $scope.awesomeThings = [
+      'HTML5 Boilerplate',
+      'AngularJS',
+      'Karma'
+    ];
   });
